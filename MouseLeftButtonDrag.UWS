@@ -1,0 +1,33 @@
+// マウスの左ボタンドラッグを行う
+
+//■設定
+// マウス移動量
+DIM addX =  0 // 横、左方向がマイナス値、右方向がプラス値
+DIM addY = 30 // 縦、上方向がマイナス値、下方向がプラス値
+
+// 処理実行時の待ち時間(ミリ秒) 操作が早くてVRoidStudio側の動作遅れる場合は値を大きくする
+DIM wait = 50
+
+
+// 自動操作コード
+DIM mouseX = G_MOUSE_X
+DIM mouseY = G_MOUSE_Y
+DIM mx = mouseX
+DIM my = mouseY
+
+BTN(LEFT,DOWN,mouseX,mouseY,wait)
+
+IF addX <> 0 THEN
+  FOR mx = mouseX TO (mouseX + addX) STEP (addX / ABS(addX))
+    MMV(mx, my, wait)
+  NEXT
+ENDIF
+
+IF addY <> 0 THEN
+  FOR my = mouseY TO (mouseY + addY) STEP (addY / ABS(addY))
+    MMV(mx, my, wait)
+  NEXT
+ENDIF
+
+BTN(LEFT,UP,mouseX + addX,mouseY + addY,(wait * 3))
+
